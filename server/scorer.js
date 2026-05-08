@@ -43,7 +43,7 @@ export async function scoreMessage(text) {
       messages: [{ role: 'user', content: `Evaluate this text as a potential index card:\n\n"${text}"` }],
     });
 
-    const raw = response.content[0].text.trim();
+    const raw = response.content[0].text.trim().replace(/^```[a-z]*\n?|\n?```$/g, '');
     const parsed = JSON.parse(raw);
     return {
       score: typeof parsed.score === 'number' ? parsed.score : 0,
